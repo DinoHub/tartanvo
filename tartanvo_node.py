@@ -51,11 +51,11 @@ class TartanVONode(object):
 
         model_name = rospy.get_param('~model_name', 'tartanvo_1914.pkl')
         w = rospy.get_param('~image_width', 640)
-        h = rospy.get_param('~image_height', 480)
+        h = rospy.get_param('~image_height', 360)
         fx = rospy.get_param('~focal_x', 320.0)
         fy = rospy.get_param('~focal_y', 320.0)
         ox = rospy.get_param('~center_x', 320.0)
-        oy = rospy.get_param('~center_y', 240.0)
+        oy = rospy.get_param('~center_y', 180.0)
         self.cam_intrinsics = [w, h, fx, fy, ox, oy]
 
         self.cv_bridge = CvBridge()
@@ -71,7 +71,8 @@ class TartanVONode(object):
 
         self.last_img = None
         self.pose = np.matrix(np.eye(4,4))
-        self.scale = 1.0
+        #change this to change scale
+        self.scale = 1
 
     def handle_caminfo(self, msg):
         w = msg.width
@@ -114,19 +115,19 @@ class TartanVONode(object):
             motion, _ = self.tartanvo.test_batch(sample)
             motion = motion[0]
             # adjust the scale if available
-            if self.scale!=1:
-                trans = motion[:3]
-                trans = trans / np.linalg.norm(trans) * self.scale
-                motion[:3] = trans
-                print(self.scale)
+            # if self.scale!=1:
+            #    trans = motion[:3]
+            #    trans = trans / np.linalg.norm(trans) * self.scale
+            #    motion[:3] = trans
+            print(self.scale)
 
             motion_mat = se2SE(motion)
             self.pose = self.pose * motion_mat
             quat = SO2quat(self.pose[0:3,0:3])
 
-            pose_msg.pose.position.x = self.pose[0,3]
-            pose_msg.pose.position.y = self.pose[1,3]
-            pose_msg.pose.position.z = self.pose[2,3]
+            pose_msg.pose.position.x = self.scale*self.pose[0,3]
+            pose_msg.pose.position.y = self.scale*self.pose[1,3]
+            pose_msg.pose.position.z = self.scale*self.pose[2,3]
             pose_msg.pose.orientation.x = quat[0]
             pose_msg.pose.orientation.y = quat[1]
             pose_msg.pose.orientation.z = quat[2]
