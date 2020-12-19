@@ -1,7 +1,53 @@
-# Installation
+# Steps
 
-# Usage
-If camera information is not provided via cam_info ROS topic, define camera parameters in tartanvo_node.py
+## Installation
+### Setting up the environment in the docker
+We provide a prebuilt [docker image](https://hub.docker.com/repository/docker/amigoshan/tartanvo) and a [dockerfile](docker/tartanvo_ros.dockerfile), which allow you to replicate our setup. The docker image contains everything we need for testing this repo, including cuda, pytorch, cupy, opencv, ROS-melodic and etc. Here are the steps to build the docker image. 
+
+1. Install docker and nvidia-docker. You can find online tutorials like [this](https://cnvrg.io/how-to-setup-docker-and-nvidia-docker-2-0-on-ubuntu-18-04/).
+2. Run the docker image and mount the repository into the container, the following commands will automatically download the docker image. 
+```
+$ git clone https://github.com/castacks/tartanvo.git
+$ cd tartanvo
+$ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest
+$ cd tartanvo
+```
+3. Now it's all set. Continuing the following steps inside the container.
+
+The above docker image is built on a ubuntu machine with nvidia driver 440.100. Alternatively, you can also build the docker image from the dockerfile we provided:
+```
+$ cd docker 
+$ docker build -t tartanvo -f tartanvo_ros.dockerfile .
+```
+### Running without docker
+This repo has the following dependencies:
+* Python 2 / 3
+* numpy 
+* matplotlib
+* scipy
+* pytorch >= 1.3
+* opencv-python
+* cupy
+
+You can install the above dependencies manually, or use the following command:
+```
+$ pip install numpy matplotlib scipy torch==1.4.0 opencv-python==4.2.0.32 cupy==6.7.0
+```
+
+Our code has been tested on Ubuntu 18.04 and 16.04. An nvidia-driver and a Cuda version of 9.2/10.2 are required to run the code. 
+
+## Testing with a pretrained model
+### Download the pretrained model
+
+```
+$ mkdir models
+$ wget https://cmu.box.com/shared/static/t1a5u4x6dxohl89104dyrsiz42mvq2sz.pkl -O models/tartanvo_1914.pkl
+```
+### Using AirSim data
+Define camera parameters in cam_info topic.
+
+
+# Original README below:
 
 # TartanVO: A Generalizable Learning-based VO
 
