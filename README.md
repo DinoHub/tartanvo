@@ -1,3 +1,8 @@
+# Installation
+
+# Usage
+If camera information is not provided via cam_info ROS topic, define camera parameters in tartanvo_node.py
+
 # TartanVO: A Generalizable Learning-based VO
 
 TartanVO is a learning-based visual odometry trained on [TartanAir](https://theairlab.org/tartanair-dataset) dataset. It generalizes to multiple datasets and real-world scenarios, and outperforms geometry-based methods in challenging scenes. 
