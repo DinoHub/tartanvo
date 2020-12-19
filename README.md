@@ -1,4 +1,4 @@
-# Steps (adapted from original README
+# Steps (adapted from original README)
 
 ## Installation
 ### Setting up the environment in the docker
