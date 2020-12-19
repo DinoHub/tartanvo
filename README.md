@@ -1,6 +1,6 @@
-# Steps (adapted from original README)
+# Steps for running TartanVO with AirSim data (adapted from original README)
 
-## Installation
+## 1. Installation
 ### Setting up the environment in the docker
 We provide a prebuilt [docker image](https://hub.docker.com/repository/docker/amigoshan/tartanvo) and a [dockerfile](docker/tartanvo_ros.dockerfile), which allow you to replicate our setup. The docker image contains everything we need for testing this repo, including cuda, pytorch, cupy, opencv, ROS-melodic and etc. Here are the steps to build the docker image. 
 
