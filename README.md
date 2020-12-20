@@ -11,7 +11,7 @@ $ git clone https://github.com/castacks/tartanvo.git
 $ cd tartanvo
 $ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest
 ```
-3. Now it's all set. Continue with step **2. Testing with a pretrained model** inside the container.
+3. Now it's all set. Continue with step **2. Testing with a pretrained model** from inside the container.
 
 The above docker image is built on a ubuntu machine with nvidia driver 440.100. Alternatively, you can also build the docker image from the dockerfile we provided:
 ```
@@ -82,15 +82,16 @@ $ python tartanvo_node.py
 ```
 $ rosrun rviz rviz
 ```
-Load [config file](config.rviz) to view image topic and path.
+Load [config file](config.rviz) to view video and trajectory.
 
 4. In another terminal, start your image publisher node
 * For AirSim
-Refer to [AirSim Guide](https://docs.google.com/document/d/1pq6UXhYqE5fM7pGwNaGxquqWXJGWKgkp3a2qQj_gil8/edit?usp=sharing)
+
 ```
 $ roslaunch airsim_ros_pkgs airsim_node.launch
+
 ```
-If you open the `rviz` and use this [config file](config.rviz), you can see the visualization
+Refer to [AirSim Guide](https://docs.google.com/document/d/1pq6UXhYqE5fM7pGwNaGxquqWXJGWKgkp3a2qQj_gil8/edit?usp=sharing)
    
 
 
