@@ -46,9 +46,9 @@ We provide a python ROS node in `tartanvo_node.py` for the easy integration of t
 
 ### How does TartanVONode work?
 1. Subscribed topics
-   - rgb_image (sensor_msgs/Image): RGB image. Required. Topic name can be change in line 68 of `tartanvo_node.py`.
-   - cam_info (sensor_msgs/CameraInfo): camera parameters which are used to calculate intrinsics layer. Optional. Refer to 3. Camera Paramters below. 
-   - vo_scale (std_msgs/Float32): scale of the translation (should be published at the same frequncy with the image). Optional. If this is not provided, default value will be used. The default value can be changed in line 75 of `tartanvo_node.py`.
+   - rgb_image (sensor_msgs/Image): (Required) RGB image. Topic name can be change in line 68 of `tartanvo_node.py`.
+   - cam_info (sensor_msgs/CameraInfo): (Optional) camera parameters which are used to calculate intrinsics layer. More information found in 3. Camera Parameters below. 
+   - vo_scale (std_msgs/Float32): (Optional) scale of the translation (should be published at the same frequncy with the image). If this is not provided, default value will be used. The default value can be changed in line 75 of `tartanvo_node.py`.
 
 2. Published topics
    - tartanvo_pose (geometry_msgs/PoseStamped): position and orientation of the camera
