@@ -55,7 +55,7 @@ We provide a python ROS node in `tartanvo_node.py` for the easy integration of t
    - tartanvo_odom (nav_msgs/Odometry): position and orientation of the camera (same with the `tartanvo_pose`).
 
 3. Camera Parameters: 
-   We use the following parameters to calculate the initial intrinsics layer. If the `cam_info` topic is received, the intrinsics value will be over-written. If camera intrinsics are not published in cam_info ROS topic, define them by modifying the default camara intrinsics in `tartanvo_node.py`.
+   We use the following parameters to calculate the initial intrinsics layer. If the `cam_info` topic is received, the intrinsics value will be over-written. If not, you can modify the default intrinsics to match your camera intrinsic in `tartanvo_node.py`.
  
    - image_width : image width
    - image_height : image height
