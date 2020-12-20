@@ -10,9 +10,8 @@ We provide a prebuilt [docker image](https://hub.docker.com/repository/docker/am
 $ git clone https://github.com/castacks/tartanvo.git
 $ cd tartanvo
 $ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest
-$ cd tartanvo
 ```
-3. Now it's all set. Continue with **2. Testing with a pretrained model** inside the container.
+3. Now it's all set. Continue with step **2. Testing with a pretrained model** inside the container.
 
 The above docker image is built on a ubuntu machine with nvidia driver 440.100. Alternatively, you can also build the docker image from the dockerfile we provided:
 ```
@@ -40,6 +39,7 @@ Our code has been tested on Ubuntu 18.04 and 16.04. An nvidia-driver and a Cuda 
 ### Download the pretrained model
 
 ```
+$ cd tartanvo
 $ mkdir models
 $ wget https://cmu.box.com/shared/static/t1a5u4x6dxohl89104dyrsiz42mvq2sz.pkl -O models/tartanvo_1914.pkl
 ```
@@ -68,23 +68,28 @@ We provide a python ROS node in `tartanvo_node.py` for the easy integration of t
    
 ### Running TartanVONode
 
-1. Open a terminal (does not need to be a Docker container) and start ROS core:
+1. Open a terminal (does not need to be a Docker container) and start ROS:
 ```
 $ roscore
 ```
 
-2. In another terminal, start the Docker container and run the TartanVONode
+2. From your docker container, run the TartanVONode
 ```
-$ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest # skip this if you are not using docker
-$ cd tartanvo
 $ python tartanvo_node.py
 ```
-3. In another terminal, start your image publisher node
-* AirSim
+
+3. Start rviz in another terminal 
+```
+$ rosrun rviz rviz
+```
+Load [config file](config.rviz) to view image topic and path.
+
+4. In another terminal, start your image publisher node
+* For AirSim
+Refer to [AirSim Guide](https://docs.google.com/document/d/1pq6UXhYqE5fM7pGwNaGxquqWXJGWKgkp3a2qQj_gil8/edit?usp=sharing)
 ```
 $ roslaunch airsim_ros_pkgs airsim_node.launch
 ```
-
 If you open the `rviz` and use this [config file](config.rviz), you can see the visualization
    
 
