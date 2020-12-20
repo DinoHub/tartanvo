@@ -1,7 +1,7 @@
 # Steps for running TartanVO with AirSim data (adapted from original README)
 
 ## 1. Installation
-### Setting up the environment in the docker
+### Setting up the environment in docker
 We provide a prebuilt [docker image](https://hub.docker.com/repository/docker/amigoshan/tartanvo) and a [dockerfile](docker/tartanvo_ros.dockerfile), which allow you to replicate our setup. The docker image contains everything we need for testing this repo, including cuda, pytorch, cupy, opencv, ROS-melodic and etc. Here are the steps to build the docker image. 
 
 1. Install docker and nvidia-docker. You can find online tutorials like [this](https://cnvrg.io/how-to-setup-docker-and-nvidia-docker-2-0-on-ubuntu-18-04/).
@@ -12,8 +12,6 @@ $ cd tartanvo
 $ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest
 $ cd tartanvo
 ```
-3. Now it's all set. Continuing the following steps inside the container.
-
 The above docker image is built on a ubuntu machine with nvidia driver 440.100. Alternatively, you can also build the docker image from the dockerfile we provided:
 ```
 $ cd docker 
@@ -36,15 +34,57 @@ $ pip install numpy matplotlib scipy torch==1.4.0 opencv-python==4.2.0.32 cupy==
 
 Our code has been tested on Ubuntu 18.04 and 16.04. An nvidia-driver and a Cuda version of 9.2/10.2 are required to run the code. 
 
-## Testing with a pretrained model
+## 2. Testing with a pretrained model
 ### Download the pretrained model
 
 ```
 $ mkdir models
 $ wget https://cmu.box.com/shared/static/t1a5u4x6dxohl89104dyrsiz42mvq2sz.pkl -O models/tartanvo_1914.pkl
 ```
-### Using AirSim data
-Define camera parameters in cam_info topic.
+## 3. ROS node
+We provide a python ROS node in `tartanvo_node.py` for the easy integration of the TartanVO into robotic systems. 
+
+### How does TartanVONode work?
+1. Subscribed topics
+   - rgb_image (sensor_msgs/Image): RGB image. Required. Topic name can be change in line 68 of `tartanvo_node.py`.
+   - cam_info (sensor_msgs/CameraInfo): camera parameters which are used to calculate intrinsics layer. Optional. Refer to 3. Camera Paramters below. 
+   - vo_scale (std_msgs/Float32): scale of the translation (should be published at the same frequncy with the image). Optional. If this is not provided, default value will be used. The default value can be changed in line 75 of `tartanvo_node.py`.
+
+2. Published topics
+   - tartanvo_pose (geometry_msgs/PoseStamped): position and orientation of the camera
+   - tartanvo_odom (nav_msgs/Odometry): position and orientation of the camera (same with the `tartanvo_pose`).
+
+3. Camera Parameters: 
+   We use the following parameters to calculate the initial intrinsics layer. If the `cam_info` topic is received, the intrinsics value will be over-written. If camera intrinsics are not published in cam_info ROS topic, define them by modifying the default camara intrinsics in `tartanvo_node.py`.
+ 
+   - image_width : image width
+   - image_height : image height
+   - focal_x : camera focal lengh
+   - focal_y : camera focal lengh
+   - center_x : camera optical center
+   - center_y : camera optical center
+   
+### Running TartanVONode
+
+1. Open a ROS core:
+```
+$ roscore
+```
+
+2. In another terminal, start the docker container and run the TartanVONode
+```
+$ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest
+$ cd tartanvo
+$ python tartanvo_node.py
+```
+3. In another terminal, start your image publisher node
+* AirSim
+```
+$ roslaunch airsim_ros_pkgs airsim_node.launch
+```
+
+If you open the `rviz` and use this [config file](config.rviz), you can see the visualization
+   
 
 
 # Original README below:
