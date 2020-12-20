@@ -71,9 +71,9 @@ We provide a python ROS node in `tartanvo_node.py` for the easy integration of t
 $ roscore
 ```
 
-2. In another terminal, start the docker container and run the TartanVONode
+2. In another terminal, start the docker container (optional) and run the TartanVONode
 ```
-$ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest
+$ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest #skip this if you are not using docker)
 $ cd tartanvo
 $ python tartanvo_node.py
 ```
