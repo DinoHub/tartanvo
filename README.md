@@ -7,7 +7,7 @@ We provide a prebuilt [docker image](https://hub.docker.com/repository/docker/am
 1. Install docker and nvidia-docker. You can find online tutorials like [this](https://cnvrg.io/how-to-setup-docker-and-nvidia-docker-2-0-on-ubuntu-18-04/).
 2. Run the docker image and mount the repository into the container, the following commands will automatically download the docker image. 
 ```
-$ git clone https://github.com/castacks/tartanvo.git
+$ git clone https://github.com/yx0123/tartanvo.git
 $ cd tartanvo
 $ nvidia-docker run -it --rm --network host --ipc=host -v $PWD:/tartanvo amigoshan/tartanvo:latest
 ```
