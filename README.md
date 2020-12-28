@@ -85,11 +85,16 @@ $ rosrun rviz rviz
 Load [config file](config.rviz) to view video and trajectory.
 
 4. In another terminal, start your image publisher node
-* For AirSim
+* For AirSim, start your environemnt then run
 
 ```
 $ roslaunch airsim_ros_pkgs airsim_node.launch
 ```
+or play your rosbag 
+```
+$ rosbag play BAGNAME
+```
+
 Refer to [AirSim Guide](https://docs.google.com/document/d/1pq6UXhYqE5fM7pGwNaGxquqWXJGWKgkp3a2qQj_gil8/edit?usp=sharing)
    
 
