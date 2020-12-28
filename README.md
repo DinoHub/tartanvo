@@ -89,7 +89,6 @@ Load [config file](config.rviz) to view video and trajectory.
 
 ```
 $ roslaunch airsim_ros_pkgs airsim_node.launch
-
 ```
 Refer to [AirSim Guide](https://docs.google.com/document/d/1pq6UXhYqE5fM7pGwNaGxquqWXJGWKgkp3a2qQj_gil8/edit?usp=sharing)
    
